@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Co-WIN</title>
+<link rel="icon" href="hospital.png" type="image/x-icon">
+ <link rel="stylesheet" href="stylehome.css">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+        <script src="https://ajax.googleapis.com/ajax/libs//jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.8.2/forge.all.min.js"></script>
+ <style>
+        body{
+        background-size: 1650px 1000px;
+        font-family: Verdana, sans-serif;
+        }
+        .round{
+        width:100px;
+        height:100px;
+        border-radius:50%;
+        display:block;
+        margin-left:130px;
+        margin-right:auto;
+        }
+        .field_set{
+        width:30%;
+        height:50%;
+        margin-top:80px;
+        margin-bottom:200px;
+        border:3px;
+       
+  		border-color: #a517ba ;
+  		border-style: solid;
+		}
+		.dark-mode {
+			background-color: black;
+  			color: white;
+  			filter: invert(1) hue-rotate(180deg);
+		}
+		.invert {
+  			filter: invert(1) hue-rotate(180deg);
+		}
+		.modeBtn{
+			margin-left: 1050px;
+			background-color: #a517ba;
+			color: black;
+		}
+		
+		
+		
+		#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.content {
+  position: relative;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}		
+		
+		
+		.field_set{
+		margin-top: 10px;
+		}
+		
+        </style>
+</head>
+ <body>
+ 
+ <video autoplay muted loop id="myVideo">
+  <source src="animation.mp4" type="video/mp4">
+</video>
+
+ <!-- --------------Header NavBar -->
+<section id="nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <h2 class="logo" style="padding-right:1090px;"><i>COWIN</i></h2>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                         <li class="nav-item">
+                            <a class="nav-link" href="index.html">LOGOUT</a>
+                        </li>
+                        <li>
+                 			<button onclick="myFunction()" class="btn btn-primary modeBtn inverted">Mode</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+ 
+ 
+ <!--------------Register Tag-------------------->
+ <center>
+        <div class="register content">
+       			<br>
+       			<br>
+       			<br>
+                <fieldset class="field_set shadow"><legend></legend>
+                <b style="font-size:1.5em;color:white;">Register or Sign-In</b><br><br>
+                <label style="font-weight:40px;margin-top:18px;margin-bottom:18px;color:white">Enter you mobile number</label><br> 
+                <input type="text"  class="enter" name="num" id="num" maxlength="15"  onkeyup="check(); return false;" required><br><span style="color:red;" id="Message"></span>
+               <br><br>
+               <Button type="button" class="btn btn-outline-secondary" style="background-image: linear-gradient(to right,#a517ba, #5f1762);color:white;border-radius:4px">GET OTP</Button>       
+                <br><br><br>
+                <div class="otp-section">
+                <label style="font-weight:bold;color:white" id="add">An OTP has been sent to mobile</label>
+                <br><br>
+                <input style="border-radius:4px;padding-top:-30px;" type="text" class="confirm-otp" name="pnum" id="pnum">
+                <br><br>
+                <input type="submit" class="btn btn-outline-secondary confirm-btn" style="background-image: linear-gradient(to right,#a517ba, #5f1762);color:white; margin-bottom:10px" name="pbtn" id="pbtn" value="PROCEED">
+                 <br>
+            </div>
+  
+            </fieldset>
+        </div> 
+        </center> 
+
+
+        <script>
+        //Global variable to store transaction ID
+            var transID;
+            var add=$('#add');
+           
+            function check()
+            {
+				
+                var mobile = document.getElementById('num');
+               
+                var message = document.getElementById('Message');
+              
+                if(mobile.value.length<10){
+                    message.innerHTML = "Please Enter 10 digit number";
+                }
+                else{
+                	message.innerHTML="";
+            
+                	function loadmobilenum()
+                	{
+                		var mobile
+                	}
+                	
+        //document is ready for jquery function call
+            $(document).ready(function(){
+            //onlick function for btn class
+
+            	var phone=$('.enter').val();
+                $('.btn').on('click',function(){
+               //fetching value from class enter and assigning to variable phone 	
+                   
+                	$("#Message").hide();
+              //print phone on console
+                    console.log(phone);
+             //assigning/request to requestdata in JSON format
+                    var requestdata={'mobile':phone};
+         			
+             
+             //calling ajax for request or send data from sever
+             $.ajax({
+            url:"https://cdn-api.co-vin.in/api/v2/auth/public/generateOTP", //url to generate otp
+            type:'POST',						//request type
+            data:JSON.stringify(requestdata),		//request data
+            contentType: 'application/json',		//request contentType
+            success: function(results)				//success response
+            {
+            	$("#Message").hide();
+            	$(".otp-section").show(); 			//if success show otp section
+                var ph=phone%10000;
+               	add.append("**"+ph);
+                transId=results;					//assigning local to global
+                console.log(results); 				//printing on to console
+            },
+            error:function(){						//error response
+                $(".otp-section").show(); 			//if error show otp-section
+            }
+            });
+            });
+               
+
+            $('.confirm-btn').on('click',function(){
+                var otp=$('.confirm-otp').val();
+                console.log(otp);
+                var md = forge.md.sha256.create();  
+                md.start();  
+                md.update(otp, "utf8");  
+                var hashText = md.digest().toHex();
+
+                $.ajax({
+                    url:"https://cdn-api.co-vin.in/api/v2/auth/public/confirmOTP",
+                    type:'POST',
+                    data:JSON.stringify({'otp':hashText,'txnId':transId.txnId}),
+                    contentType: 'application/json',
+                    success: function(results)
+                    {
+                        window.location.href="validateuser.jsp?mobile="+phone
+                    	
+                    },
+                    error:function(){
+                	 $('.otp-section').show();
+                    alert("Entered OTP is invalid");
+                    }
+        	   
+                            });
+                       });
+                   });//ad yavdo
+                }
+            }//function loop
+            
+            function myFunction() {
+         	   var element = document.body;
+         	   element.classList.toggle("dark-mode");
+         	   document.querySelectorAll('.inverted').forEach((result)=>{
+         		   result.classList.toggle("invert");
+         	   })
+         	   
+         	}
+           
+     </script>
+
+</body>
+
+</html>
